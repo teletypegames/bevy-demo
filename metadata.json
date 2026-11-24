@@ -3,7 +3,8 @@
   "title": "Bevy Demo",
   "author": "Teletype Games",
   "desc": "It's a simple demo program in Bevy",
-  "site": "https://git.teletypegames.org/games/bevydemo",
+  "site": "https://git.teletypegames.org/demos/bevy-demo",
+  "repo": "https://git.teletypegames.org/demos/bevy-demo",
   "license": "MIT License",
   "version": "1.0.0"
 }
