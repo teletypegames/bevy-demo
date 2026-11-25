@@ -1,11 +1,20 @@
+//! The Bevy demo: the letters of "TELETYPE GAMES" ride a sine wave with drop
+//! shadows, cycling through a five-colour palette.
+
 use bevy::prelude::*;
 
+/// Window width in pixels.
 const SCREEN_W: f32 = 640.0;
+/// Window height in pixels.
 const SCREEN_H: f32 = 480.0;
+/// The text that waves.
 const MESSAGE: &str = "TELETYPE GAMES";
+/// Horizontal distance between two letters, in pixels.
 const CHAR_W: f32 = 40.0;
+/// Height of the wave, in pixels up and down.
 const WAVE_AMPLITUDE: f32 = 28.0;
 
+/// Returns colour `i` of the five-colour palette, wrapping around.
 fn palette(i: usize) -> Color {
     match i % 5 {
         0 => Color::srgb_u8(0x1a, 0x1c, 0x2c),
@@ -16,12 +25,15 @@ fn palette(i: usize) -> Color {
     }
 }
 
+/// A letter (or its shadow), with its index in [`MESSAGE`].
 #[derive(Component)]
 struct Letter(usize);
 
+/// Marks the shadow copy of a letter.
 #[derive(Component)]
 struct Shadow;
 
+/// Opens the window and runs the app with the [`setup`] and [`animate`] systems.
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
@@ -38,6 +50,7 @@ fn main() {
         .run();
 }
 
+/// Spawns the camera and, for every letter, its shadow and the letter itself.
 fn setup(mut commands: Commands) {
     commands.spawn(Camera2d);
 
@@ -67,6 +80,8 @@ fn setup(mut commands: Commands) {
     }
 }
 
+/// Moves every letter along the wave and shifts the letters' colours over time;
+/// a shadow follows its letter 4 pixels lower.
 fn animate(
     time: Res<Time>,
     mut query: Query<(&Letter, &mut Transform, &mut TextColor, Option<&Shadow>)>,
